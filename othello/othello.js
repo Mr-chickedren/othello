@@ -22,8 +22,8 @@ const Stone = {
 
 const CellCond = {
     none:   0,
-    canput:    1,
-    put: 2
+    canput: 1,
+    put:    2
 }
 
 //cell no class
@@ -92,13 +92,13 @@ for(var i=0; i<cellnum; i++){
 }
 
 //set stone
-cells[3][3].set_condition(1);
-cells[3][4].set_condition(-1);
-cells[4][3].set_condition(-1);
-cells[4][4].set_condition(1);
+cells[3][3].set_condition(Stone.white);
+cells[3][4].set_condition(Stone.black);
+cells[4][3].set_condition(Stone.black);
+cells[4][4].set_condition(Stone.white);
 //test
-cells[1][1].set_board_condition(1);
-cells[2][2].set_board_condition(2);
+cells[1][1].set_board_condition(CellCond.canput);
+cells[2][2].set_board_condition(CellCond.put);
 
 //timer
 var time = 0;
