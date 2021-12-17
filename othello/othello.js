@@ -4,13 +4,13 @@ var ctx = canvas.getContext("2d");
 const cellnum = 8;
 const cellsize = canvas.width / cellnum;
 const radrate = 38/100;
-const linewid = 3;
+const linewidrate = 3/100;
 
 const Color = {
     deep_black: "rgb(0,0,0)",
     black:      "rgb(20,20,20)",
     white:      "rgb(250,250,250)",
-    green:      "rgb(0,150,0)",
+    green:      "rgb(65,65,65)",
     red:        "rgb(150,50,50)",
     blue:       "rgb(50,100,150)"
 };
@@ -52,7 +52,6 @@ class Cell{
     }
 
     disp(x,y){
-        
         ctx.beginPath();
         ctx.fillStyle = Color.deep_black;
         ctx.fillRect(x, y, this.size, this.size);
@@ -74,7 +73,8 @@ class Cell{
                 break;
         }
 
-        ctx.fillRect(x+linewid, y+linewid, this.size-linewid*2,this.size-linewid*2);
+        ctx.fillRect(x+linewidrate*cellsize, y+linewidrate*cellsize,
+            this.size-linewidrate*cellsize*2,this.size-linewidrate*cellsize*2);
         ctx.stroke();
         
         //stone color
@@ -92,10 +92,71 @@ class Cell{
     }
 }
 
+/*under develop*************************************************************************/
+
+function search_put()
+{
+
+}
+
+function random_insert()
+{
+
+}
+
+function getRandomInt(min, max)
+{        
+    min = Math.ceil(min);
+    max = Math.floor(max);        
+    return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
+}
+
+//game start
+function game_start(board)
+{
+    var turn, x, y, number_of_disc, black, white, empty, end_flag = 0;
+    var win_or_lose =0;
+    var put = new Array(cellnum);
+    for(var i = 0;i < cellnum;i++)
+    {
+        put[i] = new Array(cellnum);
+        for(var j = 0;j < cellnum;j++)
+        {
+            put[i][j] = 0;
+        }
+    }
+
+    turn = getRandomInt(0,2);
+
+    while(1)
+    {
+        black = 0, white = 0, empty = 0;
+        number_of_disc = search_put();
+        if(turn % 2 == 0)
+        {
+            if(number_of_disc == 0)
+            {
+                if(end_flag == 1)break;
+                end_flag = 1;
+            }
+            else
+            {
+            random_insert();
+            end_flag = 0;
+            }
+        }
+        
+    }
+      
+}
+game_start();
+
+/***********************************************************************************/
+
 //init
 var cells = new Array(cellnum);
 for(var i=0; i<cellnum; i++){
-    cells[i] = Array(cellnum);
+    cells[i] = new Array(cellnum);
     for(var j=0; j<cellnum; j++){
         cells[i][j] = new Cell();
         cells[i][j].set_size(cellsize);
@@ -103,6 +164,8 @@ for(var i=0; i<cellnum; i++){
         cells[i][j].set_board_condition(0);
     }
 }
+
+
 
 //set stone
 cells[3][3].set_condition(Stone.white);
