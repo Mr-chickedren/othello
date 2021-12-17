@@ -2,8 +2,9 @@ var canvas = document.getElementById("Canvas")
 var ctx = canvas.getContext("2d");
 
 const cellnum = 8;
-const cellsize = 50
-const linewid = 2;
+const cellsize = canvas.width / cellnum;
+const radrate = 38/100;
+const linewid = 3;
 
 const Color = {
     deep_black: "rgb(0,0,0)",
@@ -78,7 +79,7 @@ class Cell{
         
         //stone color
         var cirle = new Path2D();
-        cirle.arc(x+(this.size/2),y+(this.size/2),18,0,2*Math.PI);
+        cirle.arc(x+(this.size/2),y+(this.size/2),cellsize*radrate,0,2*Math.PI);
         switch(this.condition){
             case Stone.none:
                 ctx.fillStyle = style; break;
@@ -134,8 +135,12 @@ dispp();
 //click process
 var c = 1;
 canvas.onclick = function(event){
-    var x = event.pageX - 8;
-    var y = event.pageY - 8;
+    var clientRect = this.getBoundingClientRect();
+	var positionX = clientRect.left + window.pageXOffset;
+	var positionY = clientRect.top + window.pageYOffset;
+
+    var x = event.pageX - positionX;
+    var y = event.pageY - positionY;
 
     var i = Math.floor(x / cellsize);
     var j = Math.floor(y / cellsize);
