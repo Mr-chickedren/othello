@@ -14,6 +14,18 @@ const Color = {
     blue:       "rgb(50,100,150)"
 };
 
+const Stone = {
+    none:   0,
+    white:  1,
+    black:  -1
+};
+
+const CellCond = {
+    none:   0,
+    canput:    1,
+    put: 2
+}
+
 //cell no class
 class Cell{
     set_condition(_condition){
@@ -35,17 +47,18 @@ class Cell{
         //cell color
         var style = Color.green;
         switch(this.bcondition){
-            case 0:
+            case CellCond.none:
                 style = Color.green;
                 ctx.fillStyle = style;
                 break;
-            case 1:
+            case CellCond.canput:
                 style = Color.red;
                 ctx.fillStyle = style;
                 break;
-            case 2:
+            case CellCond.put:
                 style = Color.blue;
                 ctx.fillStyle = style;
+                break;
         }
 
         ctx.fillRect(x+linewid, y+linewid, this.size-linewid*2,this.size-linewid*2);
@@ -55,11 +68,11 @@ class Cell{
         var cirle = new Path2D();
         cirle.arc(x+(this.size/2),y+(this.size/2),18,0,2*Math.PI);
         switch(this.condition){
-            case 0:
+            case Stone.none:
                 ctx.fillStyle = style; break;
-            case 1:
+            case Stone.white:
                 ctx.fillStyle = Color.white; break;
-            case -1:
+            case Stone.black:
                 ctx.fillStyle = Color.black; break;
         }
         ctx.fill(cirle)
