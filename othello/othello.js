@@ -5,6 +5,15 @@ const cellnum = 8;
 const cellsize = 50
 const linewid = 2;
 
+const Color = {
+    deep_black: "rgb(0,0,0)",
+    black:      "rgb(20,20,20)",
+    white:      "rgb(250,250,250)",
+    green:      "rgb(0,150,0)",
+    red:        "rgb(150,50,50)",
+    blue:       "rgb(50,100,150)"
+};
+
 //cell no class
 class Cell{
     set_condition(_condition){
@@ -20,22 +29,22 @@ class Cell{
     disp(x,y){
         
         ctx.beginPath();
-        ctx.fillStyle = "rgb(0,0,0)";
+        ctx.fillStyle = Color.deep_black;
         ctx.fillRect(x, y, this.size, this.size);
 
         //cell color
-        var style = "rgb(0,150,0)"
+        var style = Color.green;
         switch(this.bcondition){
             case 0:
-                style = "rgb(0,150,0)";
-                ctx.fillStyle = "rgb(0,150,0)";
+                style = Color.green;
+                ctx.fillStyle = style;
                 break;
             case 1:
-                style = "rgb(150,50,50)";
+                style = Color.red;
                 ctx.fillStyle = style;
                 break;
             case 2:
-                style = "rgb(50,100,150)";
+                style = Color.blue;
                 ctx.fillStyle = style;
         }
 
@@ -49,9 +58,9 @@ class Cell{
             case 0:
                 ctx.fillStyle = style; break;
             case 1:
-                ctx.fillStyle = "rgb(250,250,250)"; break;
+                ctx.fillStyle = Color.white; break;
             case -1:
-                ctx.fillStyle = "rgb(20,20,20)"; break;
+                ctx.fillStyle = Color.black; break;
         }
         ctx.fill(cirle)
     }
